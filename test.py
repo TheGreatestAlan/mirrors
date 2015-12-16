@@ -5,6 +5,8 @@ from collections import defaultdict
 #    for row in spamreader:
 #        print ', '.join(row)
 
+print "HELLO"
+'''
 csv_path = __file__ + "\\..\\resource\\ShopifyWithVariants.csv"
 image_path = __file__ + "\\..\\resource\\images\\"
 handles = defaultdict(list)
@@ -28,3 +30,4 @@ with open(csv_path,'rb') as f:
 	for key in handles:
 		print handles[key][0][3]
 		break
+'''

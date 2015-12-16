@@ -14,7 +14,7 @@ shopify.ShopifyResource.set_site(shop_url)
 
 shop = shopify.Shop.current()
 
-csv_path = __file__ + "\\..\\resource\\ShopifyWithVariantsSmall.csv"
+csv_path = __file__ + "\\..\\resource\\ShopifyWithVariants.csv"
 image_path = __file__ + "\\..\\resource\\images\\"
 
 handles = defaultdict(list)
@@ -26,18 +26,21 @@ with open(csv_path,'rb') as f:
 #		if rownum == 1:
 		if rownum >= 1:
 			if row[0] not in handles:
-				print "ADDING " + row[0] + " TO HANDLES"
 				handles[row[0]] = [[]]
 				for column in row:
 					handles[row[0]][0].append(column)
 				handles[row[0]].append(row)
+			else:
+				#Fuck, figure this out later, it's 4dub
+				for column in row:
+					handles[row[0]][]
 		rownum += 1
 
 for product in handles:
 	#if the title is not null or empty (i.e. I'm taking this to be the base product)
-	print handles[product][0][1]
+	print handles[product][0][8]
 	if not handles[product][0][1]:
-		print handles[product][0][1]
+		print handles[product][0][8]
 
 '''
 	new_product = shopify.Product()
