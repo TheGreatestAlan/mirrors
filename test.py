@@ -5,7 +5,13 @@ from collections import defaultdict
 #    for row in spamreader:
 #        print ', '.join(row)
 
-print "HELLO"
+dim1 = [1,2,3]
+dim2 = [2,3,4]
+
+dimsquared = []
+dimsquared.append(dim1)
+dimsquared.append(dim2)
+print dimsquared[0][1]
 '''
 csv_path = __file__ + "\\..\\resource\\ShopifyWithVariants.csv"
 image_path = __file__ + "\\..\\resource\\images\\"

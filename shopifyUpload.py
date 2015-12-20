@@ -25,22 +25,23 @@ with open(csv_path,'rb') as f:
 	for row in reader:
 #		if rownum == 1:
 		if rownum >= 1:
+			row_list = []
+			for column in row:
+				row_list.append(column)
 			if row[0] not in handles:
-				handles[row[0]] = [[]]
-				for column in row:
-					handles[row[0]][0].append(column)
-				handles[row[0]].append(row)
+				handles[row[0]] = []
+				handles[row[0]].append(row_list)
 			else:
-				#Fuck, figure this out later, it's 4dub
-				for column in row:
-					handles[row[0]][]
+				handles[row[0]].append(row_list)
 		rownum += 1
 
 for product in handles:
 	#if the title is not null or empty (i.e. I'm taking this to be the base product)
-	print handles[product][0][8]
-	if not handles[product][0][1]:
-		print handles[product][0][8]
+	print product
+	for variant in handles[product]:
+		print variant[8]
+#	if not handles[product][0][1]:
+#		print handles[product][0][8]
 
 '''
 	new_product = shopify.Product()
