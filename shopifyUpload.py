@@ -36,7 +36,6 @@ with open(csv_path,'rb') as f:
  			else:
  				handles[row[0]].append(row_list)
  		rownum += 1
-
 #Inserting products
 for product in handles:
  	for variant in handles[product]:
@@ -50,30 +49,40 @@ for product in handles:
  			new_product.vendor = variant[3]
  			new_product.product_type = variant[4]
  			new_product.tags = variant[5]
- 			filename = __file__ + "\\..\\resource\\images\\" + variant[42]
+# 			filename = __file__ + "\\..\\resource\\images\\" + variant[42]
+ 			filename = __file__ + "\\..\\resource\\images\\1.jpg"
  			print filename
  			image = shopify.Image()
  			with open(filename, "rb") as f:
  			    image.attach_image(f.read(), filename=filename)
  			new_product.images = [image]
- 			v = shopify.Variant(dict(price=variant[19], option1=variant[8], product_id=new_product.id))
+ 			print new_product.save()
+ 			v = shopify.Variant(dict(price=variant[19], option1=variant[8], image_id=new_product.images[0].id, product_id=new_product.id))
  			new_product.variants = [v]
  			success = new_product.save()
  			handle_ids[variant[0]] = new_product.id		
  			print success
- 	break
 #import variants
 for product in handles:
  	for variant in handles[product]:
  		if not variant[1]:
+ 			print product
+ 			print variant[8]
+# 			product_variant = shopify.Product.find(3360900293)
+			if product not in handle_ids:
+				continue
  			product_variant = shopify.Product.find(handle_ids[product])
- 			v = shopify.Variant(dict(price=variant[19], option1=variant[8], product_id=product_variant.id))
- 			v1 = shopify.Variant(dict(price=variant[19], option1="TEST", product_id=product_variant.id))
- 			# vars = product_variant.variants
- 			# if not vars:
- 			# 	vars = v
- 			# print len(vars)
- 			product_variant.variants = [v, v1]
+ 			filename = __file__ + "\\..\\resource\\images\\second.jpg"
+ 			print filename
+ 			new_image = shopify.Image()
+ 			with open(filename, "rb") as f:
+ 			    new_image.attach_image(f.read(), filename=filename)
+ 			product_variant.images.append(new_image)
+ 			print product_variant.save()
+# 			product_variant = shopify.Product.find(3360799045)
+ 			product_variant = shopify.Product.find(handle_ids[product])
+ 			image_id = product_variant.images[len(product_variant.images)-1].id
+ 			v = shopify.Variant(dict(price=variant[19], option1=variant[8], image_id=image_id, product_id=product_variant.id ))
+			product_variant.variants.append(v)
  			success = product_variant.save()
  			print success
- 	break
